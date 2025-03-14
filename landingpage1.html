@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempus | Cloud-Based Time Series Data Platform</title>
+    <style>
+        
+        :root {
+            --primary: #0078D4;
+            --secondary: #2B88D8;
+            --dark: #323130;
+            --light: #F5F5F5;
+            --accent: #107C10;
+            --warning: #FFB900;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+         /* Header Styles */
+         header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            max-width: 50%;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .btn {
+            background-color: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Animated Chart */
+        .chart-container {
+            width: 45%;
+            max-width: 500px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+        }
+
+          /* Responsive Design */
+          @media (max-width: 992px) {
+            .hero-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content, .chart-container {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .chart-container {
+                margin-top: 20px;
+                height: 250px;
+            }
+        }
+
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #605E5C;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 120, 212, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: #605E5C;
+            font-size: 16px;
+        }
+        
+        /* Azure Integration Section */
+        .azure-integration {
+            padding: 100px 0;
+            background-color: #f7f9fc;
+        }
+        
+        .azure-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .azure-text {
+            flex: 1;
+        }
+        
+        .azure-text h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .azure-text p {
+            font-size: 18px;
+            color: #605E5C;
+            margin-bottom: 30px;
+        }
+        
+        .azure-img {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .azure-img img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Use Cases Section */
+        .use-cases {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .use-cases-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #EDEBE9;
+            padding-bottom: 10px;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #605E5C;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .tab-btn:after {
+            content: '';
+            position: absolute;
+            bottom: -11px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active:after {
+            width: 100%;
+        }
+        
+        .use-case-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .use-case-img {
+            flex: 1;
+        }
+        
+        .use-case-img img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .use-case-text {
+            flex: 1;
+        }
+        
+        .use-case-text h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .use-case-text p {
+            font-size: 16px;
+            color: #605E5C;
+            margin-bottom: 20px;
+        }
+        
+        .use-case-list {
+            list-style: none;
+        }
+        
+        .use-case-list li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .use-case-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #c8c6c4;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #c8c6c4;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero-animation {
+                width: 400px;
+                height: 300px;
+            }
+            
+            .azure-content, .use-case-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .use-case-list li {
+                text-align: left;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 20px 0 10px;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .hero-animation {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon"></span>CurveLab
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#azure-integration">Azure Integration</a></li>
+                    <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#" class="btn">Request Demo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+   <!-- Hero Section -->
+   <section class="hero">
+    <div class="container">
+        <div class="hero-content-wrapper">
+            <!-- Left Side: Text -->
+            <div class="hero-content">
+                <h1>Transform Your Time Series Data into Strategic Insights</h1>
+                <p>A cloud-based platform built on Azure that helps financial firms and data-driven enterprises scrape, store, validate, forecast, and analyze time series data with unparalleled efficiency.</p>
+                <div class="hero-btns">
+                    <a href="#" class="btn">Schedule a Demo</a>
+                </div>
+            </div>
+
+            <!-- Right Side: Animated Chart -->
+            <div class="chart-container" id="chartAnimation"></div>
+        </div>
+    </div>
+</section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Platform Capabilities</h2>
+                <p>Our end-to-end solution addresses the complete lifecycle of time series data management</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">↓</div>
+                    <h3>Intelligent Data Scraping</h3>
+                    <p>Automated collection from multiple sources with customizable scraping schedules and intelligent handling of API rate limits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">☁</div>
+                    <h3>Scalable Storage</h3>
+                    <p>Azure-powered cloud storage designed specifically for time series data, with automatic scaling to handle peaks in data volume.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Data Validation Engine</h3>
+                    <p>Comprehensive validation framework with customizable rules to ensure data integrity and identify anomalies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👁</div>
+                    <h3>AI-Powered Forecasting</h3>
+                    <p>Advanced machine learning algorithms that generate accurate predictions for your time series data with adjustable confidence intervals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Interactive dashboards and visualization tools that turn complex time series data into actionable business intelligence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI-Powered Data Chatbots</h3>
+                    <p>Interact with your time series data using natural language. Our AI-driven chatbots help you explore trends, generate insights, and answer complex queries effortlessly.</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Azure Integration Section -->
+    <section class="azure-integration" id="azure-integration">
+        <div class="container">
+            <div class="azure-content">
+                <div class="azure-text">
+                    <h2>Powered by Microsoft Azure</h2>
+                    <p>Our platform leverages the full power of Azure's cloud infrastructure to deliver unmatched performance, reliability, and scalability for your time series data needs.</p>
+                    <p>With Azure's global network of data centers, your time series data platform can operate seamlessly across regions while maintaining compliance with local regulations.</p>
+                </div>
+                <div class="azure-img">
+                    <img src="images/7030586b-ee40-4431-8912-bb7df343e7d5.jpeg" alt="Azure Integration Architecture">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!-- Use Cases Section -->
+<section class="use-cases" id="use-cases">
+    <div class="container">
+        <div class="section-header">
+            <h2>Industry Solutions</h2>
+            <p>Unlock the power of structured time series data with AI-driven insights.</p>
+        </div>
+
+        <div class="use-case-content" id="data-management-content">
+            <div class="use-case-img">
+                <img src="images/b6cc6db1-944d-4126-b8ee-016d25921209.jpeg" alt="Time Series Data Use Case">
+            </div>
+            <div class="use-case-text">
+                <h3>Data Structuring & AI-Driven Insights</h3>
+                <p>Our platform simplifies the complexities of time series data by organizing, analyzing, and forecasting trends with precision.</p>
+                <ul class="use-case-list">
+                    <li>Automated data scraping and structuring from diverse sources</li>
+                    <li>Custom AI models to detect trends, seasonality, and anomalies</li>
+                    <li>Time series forecasting tools for strategic decision-making</li>
+                    <li>Interactive dashboards to visualize key patterns in your data</li>
+                    <li>Conversational AI chatbots to explore and analyze data effortlessly</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Time Series Data Management?</h2>
+            <p>Schedule a personalized demo to see how our platform can address your specific business challenges.</p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background-color: #323130; color: white; padding: 20px 0; font-size: 14px;">
+        <div class="container" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; text-align: center;">
+            
+            <!-- Location -->
+            <div class="footer-col" style="margin: 0 20px; text-align: left;">
+                <h4 style="margin-bottom: 5px; font-size: 14px;">Location</h4>
+                <p style="margin: 0;">United Arab Emirates, Dubai, DIFC</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-col" style="margin: 0 20px; text-align: left;">
+                <h4 style="margin-bottom: 5px; font-size: 14px;">Contact</h4>
+                <p style="margin: 0;">email@example.com</p>
+                <p style="margin: 0;">(555) 555-5555</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom" style="text-align: center; margin-top: 10px; color: #c8c6c4; font-size: 12px;">
+            <p>&copy; 2025 CurveLab. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const width = 600, height = 300;
+            const svg = d3.select("#chartAnimation")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+                
+            const x = d3.scaleLinear().domain([0, 10]).range([50, width - 50]);
+            const y = d3.scaleLinear().domain([0, 100]).range([height - 50, 50]);
+            
+            const line = d3.line()
+                .x((d, i) => x(i))
+                .y(d => y(d))
+                .curve(d3.curveMonotoneX);
+            
+            function updateChart() {
+                const data = d3.range(11).map(() => Math.random() * 100);
+                
+                svg.selectAll("path").remove();
+                
+                const path = svg.append("path")
+                    .datum(data)
+                    .attr("fill", "none")
+                    .attr("stroke", "rgba(255, 255, 255, 0.4)") /* Light white */
+                    .attr("stroke-width", 3)
+                    .attr("d", line)
+                    .attr("stroke-dasharray", function() { return this.getTotalLength() + "," + this.getTotalLength(); })
+                    .attr("stroke-dashoffset", function() { return this.getTotalLength(); })
+                    .transition()
+                    .duration(4000) /* Slower animation */
+                    .ease(d3.easeLinear)
+                    .attr("stroke-dashoffset", 0);
+            }
+            
+            updateChart();
+            setInterval(updateChart, 5000); /* Update every 5 sec */
+        });
+    </script>
