@@ -29,10 +29,11 @@
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    max-width: 1600px; /* Increased from 1200px to 1600px */
+    margin: 0 auto;
+    padding: 0 30px;
+    width: 90%; /* Use 90% of the viewport width */
+}
         
          /* Header Styles */
          header {
@@ -65,90 +66,143 @@
         }
         
         nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-        
-        nav ul li a:hover {
-            color: var(--primary);
-        }
-        
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary);
-        }
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary);
+}
+
+/* Button styling for nav items */
+nav ul li a.btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+nav ul li a.btn:hover {
+    background-color: var(--secondary);
+    color: white; /* Override the standard hover color */
+}
+
+/* General button style for elsewhere on the page */
+.btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--secondary);
+}
         
         /* Hero Section */
-        .hero {
-            padding: 180px 0 100px;
-            background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-content-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+/* Hero Section with custom curved edges */
+.hero {
+    padding: 180px 0 100px;
+    background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 60px;
+}
 
-        .hero-content {
-            max-width: 50%;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .btn {
-            background-color: white;
-            color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
+/* Bottom wave */
+.hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0,50 C240,0 240,100 480,50 C720,0 720,100 960,50 C1200,0 1200,100 1440,50 L1440,100 L0,100 Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
 
-        .btn:hover {
-            background-color: #f0f0f0;
-        }
+/* Ensure content is above the curves */
+.hero-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
 
+.hero-btns {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;  /* Ensure content stays above the wave */
+}
+
+.hero-content {
+    max-width: 50%;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    z-index: 2;  /* Ensure buttons stay above the wave */
+}
+
+.btn {
+    background-color: white;
+    color: var(--primary);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #f0f0f0;
+}
         /* Animated Chart */
         .chart-container {
             width: 45%;
@@ -189,6 +243,9 @@
         .features {
             padding: 100px 0;
             background-color: white;
+            padding-top: 60px;
+            padding-bottom: 50px; /* Reduced from 100px */
+
         }
         
         .section-header {
@@ -206,23 +263,25 @@
         .section-header p {
             font-size: 18px;
             color: #605E5C;
-            max-width: 700px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fixed 3-column layout */
+    gap: 50px; /* Increased gap for better separation */
+}
+
+/* Make feature cards significantly wider */
+.feature-card {
+    background-color: white;
+    border-radius: 10px; /* Slightly larger radius */
+    padding: 50px; /* Much more internal padding */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
         
         .feature-card:hover {
             transform: translateY(-5px);
@@ -230,8 +289,8 @@
         }
         
         .feature-icon {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background-color: rgba(0, 120, 212, 0.1);
             border-radius: 50%;
             display: flex;
@@ -239,30 +298,32 @@
             justify-content: center;
             margin-bottom: 20px;
             color: var(--primary);
-            font-size: 24px;
+            font-size: 26px;
         }
         
         .feature-card h3 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         
         .feature-card p {
             color: #605E5C;
             font-size: 16px;
+            line-height: 1.7; 
         }
+        
         
         /* Azure Integration Section */
         .azure-integration {
             padding: 100px 0;
-            background-color: #f7f9fc;
+            background-color: white;
         }
         
         .azure-content {
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 80px;
         }
         
         .azure-text {
@@ -295,7 +356,8 @@
         /* Use Cases Section */
         .use-cases {
             padding: 100px 0;
-            background-color: white;
+            background-color: #f7f9fc;
+            padding-top: 30px;
         }
         
         .use-cases-tabs {
@@ -341,8 +403,8 @@
         .use-case-content {
             display: flex;
             align-items: center;
-            gap: 50px;
-            max-width: 900px;
+            gap: 80px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
@@ -392,25 +454,40 @@
         }
         
         /* CTA Section */
-        .cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 40px;
-        }
-        
+        /* CTA Section with top waves */
+.cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
+    color: white;
+    text-align: center;
+    position: relative; /* Required for the positioning of the waves */
+    overflow: hidden; /* Ensure the waves don't cause horizontal scrolling */
+}
+
+
+/* Add top waves to CTA section */
+.cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0,50 C240,0 240,100 480,50 C720,0 720,100 960,50 C1200,0 1200,100 1440,50 L1440,0 L0,0 Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+/* Ensure CTA content stays above the waves */
+.cta .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Adjust CTA top padding to account for the waves */
+.cta {
+    padding-top: 100px; /* Increased from 80px to make room for the waves */
+}
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -456,59 +533,31 @@
             color: #c8c6c4;
             font-size: 14px;
         }
-        
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-            
-            .hero-animation {
-                width: 400px;
-                height: 300px;
-            }
-            
-            .azure-content, .use-case-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .use-case-list li {
-                text-align: left;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                padding: 20px 0 10px;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-            }
-            
-            nav ul li {
-                margin: 0 10px;
-            }
-            
-            .hero {
-                padding: 140px 0 80px;
-                text-align: center;
-            }
-            
-            .hero-content {
-                margin: 0 auto;
-            }
-            
-            .hero-btns {
-                justify-content: center;
-            }
-            
-            .hero-animation {
-                display: none;
-            }
-        }
+       
+/* Adjust responsive breakpoints for wider cards */
+@media (max-width: 1600px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns on medium screens */
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+    
+    .feature-card {
+        padding: 40px; /* Reduce padding on small screens */
+    }
+}
     </style>
 </head>
 <body>
@@ -516,13 +565,14 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <span class="logo-icon"></span>CurveLab
+                <span class="logo-icon"></span>CurveLab.AI
             </a>
             <nav>
                 <ul>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#azure-integration">Azure Integration</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#azure-integration">Azure Integration</a></li>
+                    
                     <li><a href="#" class="btn">Request Demo</a></li>
                 </ul>
             </nav>
@@ -536,7 +586,7 @@
             <!-- Left Side: Text -->
             <div class="hero-content">
                 <h1>Transform Your Time Series Data into Strategic Insights</h1>
-                <p>A cloud-based platform built on Azure that helps financial firms and data-driven enterprises scrape, store, validate, forecast, and analyze time series data with unparalleled efficiency.</p>
+                <p>Experience the future of time series analysis with our AI-powered, modern data platform. From automated data scraping and seamless management to advanced forecasting and dynamic visualization, we leverage cutting-edge AI to transform raw data into actionable insights. Designed for and analysts, our all-in-one solution empowers smarter, data-driven decisions with precision and efficiency.</p>
                 <div class="hero-btns">
                     <a href="#" class="btn">Schedule a Demo</a>
                 </div>
@@ -552,44 +602,76 @@
         <div class="container">
             <div class="section-header">
                 <h2>Platform Capabilities</h2>
-                <p>Our end-to-end solution addresses the complete lifecycle of time series data management</p>
+                <p>Our end-to-end solution covers the entire lifecycle of time series data, from collection to analysis and forecasting.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">↓</div>
-                    <h3>Intelligent Data Scraping</h3>
-                    <p>Automated collection from multiple sources with customizable scraping schedules and intelligent handling of API rate limits.</p>
+                    <h3>Automated Data Scraping</h3>
+                    <p>We have established a streamlined and automated data scraping system that efficiently gathers information from various sources, providing dependable and customized data collection to meet your specific requirements.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">☁</div>
-                    <h3>Scalable Storage</h3>
-                    <p>Azure-powered cloud storage designed specifically for time series data, with automatic scaling to handle peaks in data volume.</p>
-                </div>
+
                 <div class="feature-card">
                     <div class="feature-icon">✓</div>
                     <h3>Data Validation Engine</h3>
-                    <p>Comprehensive validation framework with customizable rules to ensure data integrity and identify anomalies.</p>
+                    <p>We employ an automated system for ongoing checks and monitoring to ensure data quality, featuring a robust validation framework and customizable rules to identify anomalies and uphold data integrity.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">👁</div>
-                    <h3>AI-Powered Forecasting</h3>
-                    <p>Advanced machine learning algorithms that generate accurate predictions for your time series data with adjustable confidence intervals.</p>
+                    <div class="feature-icon">☁</div>
+                    <h3>Cloud-Native Scalability</h3>
+                    <p>Our cloud storage, powered by Azure, is specifically designed for time series data, dynamically scaling to deliver optimal performance, even during periods of high data volume.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>Advanced Analytics</h3>
-                    <p>Interactive dashboards and visualization tools that turn complex time series data into actionable business intelligence.</p>
+                    <h3>Visualization & Analysis</h3>
+                    <p>Our platform features interactive dashboards and advanced visualization tools designed to simplify complex time series data, transforming it into actionable business intelligence. These tools enable you to explore trends, identify patterns, and make informed decisions with clarity and confidence.</p>
                 </div>
                 <div class="feature-card">
+                    <div class="feature-icon">👁</div>
+                    <h3>Traditional Forecasting Techniques</h3>
+                    <p>We leverage traditional time series forecasting methods, such as linear and polynomial regression, to deliver accurate and dependable predictions. By integrating these proven statistical techniques, our platform analyzes historical trends and forecasts future values, providing a reliable and time-tested approach to time series analysis.</p>
+                </div>
+            
+                <div class="feature-card">
                     <div class="feature-icon">💬</div>
-                    <h3>AI-Powered Data Chatbots</h3>
-                    <p>Interact with your time series data using natural language. Our AI-driven chatbots help you explore trends, generate insights, and answer complex queries effortlessly.</p>
+                    <h3>AI-Powered Forecasting</h3>
+                    <p>We have developed advanced machine learning and deep learning tools, along with a powerful AI agent, to revolutionize time series analysis and forecasting. Our system leverages the latest LLM (Large Language Model) technologies to enable seamless interaction with your data.</p>
                 </div>
                 
             </div>
         </div>
     </section>
     
+<!-- Use Cases Section -->
+<section class="use-cases" id="use-cases">
+    <div class="container">
+        <div class="section-header">
+            <h2>Industry Solutions</h2>
+            <p>Discover the full capabilities of time series data with intelligent, AI-driven insights. </p>
+        </div>
+
+        <div class="use-case-content" id="data-management-content">
+            <div class="use-case-img">
+                <img src="images/b6cc6db1-944d-4126-b8ee-016d25921209.jpeg" alt="Time Series Data Use Case">
+            </div>
+            <div class="use-case-text">
+                <h3>Data Structuring & AI-Driven Insights</h3>
+                <p>Our platform transforms the challenges of time series data into opportunities by seamlessly organizing, analyzing, and forecasting trends with unparalleled accuracy.</p>
+                <ul class="use-case-list">
+                    <li>Automated data collection and structuring from multiple sources</li>
+                    <li>Custom AI models to detect trends, seasonality, and anomalies</li>
+                    <li>Time series forecasting tools for strategic decision-making</li>
+                    <li>Interactive dashboards to visualize key patterns in your data</li>
+                    <li>AI-powered agents for seamless data exploration and analysis</li>
+                    <li>Integrates seamlessly with your systems, streamlining time series data storing, analysis, and forecasting.</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
     <!-- Azure Integration Section -->
     <section class="azure-integration" id="azure-integration">
         <div class="container">
@@ -606,38 +688,11 @@
         </div>
     </section>
     
-<!-- Use Cases Section -->
-<section class="use-cases" id="use-cases">
-    <div class="container">
-        <div class="section-header">
-            <h2>Industry Solutions</h2>
-            <p>Unlock the power of structured time series data with AI-driven insights.</p>
-        </div>
-
-        <div class="use-case-content" id="data-management-content">
-            <div class="use-case-img">
-                <img src="images/b6cc6db1-944d-4126-b8ee-016d25921209.jpeg" alt="Time Series Data Use Case">
-            </div>
-            <div class="use-case-text">
-                <h3>Data Structuring & AI-Driven Insights</h3>
-                <p>Our platform simplifies the complexities of time series data by organizing, analyzing, and forecasting trends with precision.</p>
-                <ul class="use-case-list">
-                    <li>Automated data scraping and structuring from diverse sources</li>
-                    <li>Custom AI models to detect trends, seasonality, and anomalies</li>
-                    <li>Time series forecasting tools for strategic decision-making</li>
-                    <li>Interactive dashboards to visualize key patterns in your data</li>
-                    <li>Conversational AI chatbots to explore and analyze data effortlessly</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
     
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <h2>Ready to Transform Your Time Series Data Management?</h2>
+            <h2>Ready to Elevate Your Time Series Data?</h2>
             <p>Schedule a personalized demo to see how our platform can address your specific business challenges.</p>
         </div>
     </section>
