@@ -206,19 +206,20 @@
             background-color: #f0f0f0;
         }
         
-        /* Animated Chart */
-        .chart-container {
+        /* Rive Animation Container */
+        .rive-container {
             width: 45%;
             max-width: 500px;
             height: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: transparent; /* Removed background */
+            border-radius: 8px;
+            overflow: hidden;
         }
         
-        canvas {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+        #rive-canvas {
             width: 100%;
             height: 100%;
         }
@@ -541,7 +542,7 @@
                 width: 100%;
             }
             
-            .chart-container {
+            .rive-container {
                 max-width: 100%;
                 width: 100%;
                 margin-top: 40px;
@@ -629,8 +630,10 @@
                     </div>
                 </div>
                 
-                <!-- Right Side: Animated Chart -->
-                <div class="chart-container" id="chartAnimation"></div>
+                <!-- Right Side: Rive Animation -->
+                <div class="rive-container">
+                    <canvas id="rive-canvas"></canvas>
+                </div>
             </div>
         </div>
     </section>
@@ -676,7 +679,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">💬</div>
                     <h3>AI-Powered Forecasting</h3>
-                    <p>We’ve built advanced machine learning, deep learning tools, and an AI agent powered by the latest LLM technology for seamless time series analysis and forecasting.</p>
+                    <p>We have developed advanced machine learning and deep learning tools, along with a powerful AI agent, to revolutionize time series analysis and forecasting.</p>
                 </div>
             </div>
         </div>
@@ -692,7 +695,7 @@
             
             <div class="use-case-content" id="data-management-content">
                 <div class="use-case-img">
-                    <img src="images\b6cc6db1-944d-4126-b8ee-016d25921209.jpeg" alt="Time Series Data Use Case">
+                    <img src="images\b6cc6db1-944d-4126-b8ee-016d25921209.jpeg"  alt="Time Series Data Use Case">
                 </div>
                 <div class="use-case-text">
                     <h3>Data Structuring & AI-Driven Insights</h3>
@@ -720,7 +723,7 @@
                     <p>With Azure's global network of data centers, your time series data platform can operate seamlessly across regions while maintaining compliance with local regulations.</p>
                 </div>
                 <div class="azure-img">
-                    <img src="images\7030586b-ee40-4431-8912-bb7df343e7d5.jpeg" alt="Azure Integration Architecture">
+                    <img src="images\7030586b-ee40-4431-8912-bb7df343e7d5.jpeg"alt="Azure Integration Architecture">
                 </div>
             </div>
         </div>
@@ -756,46 +759,11 @@
         </div>
     </footer>
     
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Rive Runtime -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rive-js/0.7.33/rive.min.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Chart Animation
-            const width = 600, height = 300;
-            const svg = d3.select("#chartAnimation")
-                .append("svg")
-                .attr("width", width)
-                .attr("height", height);
-            
-            const x = d3.scaleLinear().domain([0, 10]).range([50, width - 50]);
-            const y = d3.scaleLinear().domain([0, 100]).range([height - 50, 50]);
-            
-            const line = d3.line()
-                .x((d, i) => x(i))
-                .y(d => y(d))
-                .curve(d3.curveMonotoneX);
-            
-            function updateChart() {
-                const data = d3.range(11).map(() => Math.random() * 100);
-                
-                svg.selectAll("path").remove();
-                
-                const path = svg.append("path")
-                    .datum(data)
-                    .attr("fill", "none")
-                    .attr("stroke", "rgba(255, 255, 255, 0.4)")
-                    .attr("stroke-width", 3)
-                    .attr("d", line)
-                    .attr("stroke-dasharray", function() { return this.getTotalLength() + "," + this.getTotalLength(); })
-                    .attr("stroke-dashoffset", function() { return this.getTotalLength(); })
-                    .transition()
-                    .duration(4000)
-                    .ease(d3.easeLinear)
-                    .attr("stroke-dashoffset", 0);
-            }
-            
-            updateChart();
-            setInterval(updateChart, 5000);
-            
             // Mobile Navigation Toggle
             const burgerMenu = document.getElementById('burger-menu');
             const mainNav = document.getElementById('main-nav');
@@ -824,6 +792,228 @@
                     mainNav.classList.remove('show');
                 }
             });
+            
+            // Initialize Rive Animation
+            const canvas = document.getElementById('rive-canvas');
+            
+            // Create a data visualization animation using Rive
+            // Note: We'll simulate a Rive animation with custom JavaScript
+            // In a real implementation, you would load a .riv file
+            
+            // Create a simple line chart animation
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width = canvas.clientWidth;
+            const height = canvas.height = canvas.clientHeight;
+            
+            // Animation parameters
+            let points = [];
+            const maxPoints = 10;
+            const pointSpacing = width / maxPoints;
+            const animationSpeed = 0.02; // Reduced speed further (was 0.05)
+            let time = 0;
+            
+            // Padding for axes
+            const padding = {
+                left: 40,
+                right: 20,
+                top: 20,
+                bottom: 40
+            };
+            
+            // Variables need to be defined in the scope for resize handler
+            let chartWidth = width - padding.left - padding.right;
+            let chartHeight = height - padding.top - padding.bottom;
+            
+            // Initialize points
+            function initPoints() {
+                points = [];
+                const chartWidth = width - padding.left - padding.right;
+                const chartHeight = height - padding.top - padding.bottom;
+                
+                for (let i = 0; i < maxPoints; i++) {
+                    points.push({
+                        x: padding.left + (i * (chartWidth / (maxPoints - 1))),
+                        y: padding.top + (chartHeight / 2) + Math.sin(i * 0.5) * (chartHeight / 4),
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+            
+            // Initialize on load
+            initPoints();
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Update time
+                time += animationSpeed;
+                
+                // Draw axes
+                drawAxes();
+                
+                // Draw line
+                ctx.beginPath();
+                
+                // Update points and draw curve
+                for (let i = 0; i < points.length; i++) {
+                    const point = points[i];
+                    // Calculate new y position with constrained range to stay within chart area
+                    point.y = padding.top + (chartHeight / 2) + Math.sin(time + point.phase) * (chartHeight / 4);
+                    
+                    if (i === 0) {
+                        ctx.moveTo(point.x, point.y);
+                    } else {
+                        // Use a smooth curve
+                        const prevPoint = points[i - 1];
+                        const ctrl1X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                        const ctrl1Y = prevPoint.y;
+                        const ctrl2X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                        const ctrl2Y = point.y;
+                        
+                        ctx.bezierCurveTo(ctrl1X, ctrl1Y, ctrl2X, ctrl2Y, point.x, point.y);
+                    }
+                }
+                
+                // Style the line
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                // Draw points
+                for (let i = 0; i < points.length; i++) {
+                    const point = points[i];
+                    
+                    // Pulse effect for points (slower pulse)
+                    const pulseSize = 4 + Math.sin(time + point.phase) * 2;
+                    
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, pulseSize, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fill();
+                }
+                
+                // Add some background data points (reduced quantity and opacity)
+                for (let i = 0; i < 15; i++) {
+                    const x = padding.left + Math.random() * chartWidth;
+                    const y = padding.top + Math.random() * chartHeight;
+                    const size = Math.random() * 1.5 + 0.5;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.2})`;
+                    ctx.fill();
+                }
+                
+                // Store reference to animation frame for proper cancellation
+                animationFrame = requestAnimationFrame(animate);
+            }
+            
+            // Function to draw axes
+            function drawAxes() {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.lineWidth = 1;
+                ctx.font = '12px Arial'; // Increased font size for better readability
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                
+                // Y-axis
+                ctx.beginPath();
+                ctx.moveTo(padding.left, padding.top);
+                ctx.lineTo(padding.left, height - padding.bottom);
+                ctx.stroke();
+                
+                // Y-axis ticks and labels
+                const numYTicks = 5;
+                for (let i = 0; i <= numYTicks; i++) {
+                    const y = padding.top + (i / numYTicks) * chartHeight;
+                    const value = 100 - (i / numYTicks) * 100;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(padding.left - 5, y);
+                    ctx.lineTo(padding.left, y);
+                    ctx.stroke();
+                    
+                    ctx.fillText(value.toFixed(0), padding.left - 8, y);
+                }
+                
+                // X-axis
+                ctx.beginPath();
+                ctx.moveTo(padding.left, height - padding.bottom);
+                ctx.lineTo(width - padding.right, height - padding.bottom);
+                ctx.stroke();
+                
+                // X-axis ticks and labels
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+                
+                // Draw x-axis labels with better spacing
+                for (let i = 0; i < maxPoints; i++) {
+                    const x = padding.left + (i * (chartWidth / (maxPoints - 1)));
+                    
+                    // Draw tick
+                    ctx.beginPath();
+                    ctx.moveTo(x, height - padding.bottom);
+                    ctx.lineTo(x, height - padding.bottom + 5);
+                    ctx.stroke();
+                    
+                    // Draw month label with no background
+                    if (i < months.length) {
+                        // Draw text directly without background
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                        ctx.fillText(months[i], x, height - padding.bottom + 10);
+                    }
+                }
+                
+                // Y-axis title
+                ctx.save();
+                ctx.translate(10, height / 2);
+                ctx.rotate(-Math.PI / 2);
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                ctx.font = '14px Arial';
+                ctx.restore();
+                
+                // X-axis title without background
+                ctx.textAlign = 'center';
+                ctx.font = '14px Arial';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            }
+            
+            // Start animation
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                // Stop any existing animation frame
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                }
+                
+                // Reset canvas dimensions
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                
+                // Update width and height variables
+                width = canvas.width;
+                height = canvas.height;
+                
+                // Update chart dimensions
+                chartWidth = width - padding.left - padding.right;
+                chartHeight = height - padding.top - padding.bottom;
+                
+                // Reinitialize points for new dimensions
+                initPoints();
+                
+                // Restart animation
+                animate();
+            });
+            
+            // Store animation frame request for proper cancellation
+            let animationFrame;
         });
     </script>
 </body>
