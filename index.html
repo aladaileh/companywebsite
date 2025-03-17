@@ -35,13 +35,24 @@
         }
         
         /* Header Styles */
-        header {
+           /* Header Watermark - Centered Version */
+           header {
             background-color: white;
+            background-image: repeating-linear-gradient(
+                -10deg,
+                transparent,
+                transparent 40px,
+                rgba(0, 120, 212, 0.02) 40px,
+                rgba(0, 120, 212, 0.02) 80px
+            );
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: fixed;
             width: 100%;
             z-index: 100;
+            position: relative;
+            overflow: hidden;
         }
+        
         
         .nav-container {
             display: flex;
@@ -104,7 +115,7 @@
         }
         
         /* Burger Menu Styles */
-        .burger-menu {
+        /* .burger-menu {
             display: none;
             cursor: pointer;
             flex-direction: column;
@@ -120,7 +131,7 @@
             background-color: var(--primary);
             border-radius: 3px;
             transition: all 0.3s ease;
-        }
+        } */
         
         /* General button style for elsewhere on the page */
         .btn {
@@ -139,7 +150,7 @@
         
         /* Hero Section with custom curved edges */
         .hero {
-            padding: 180px 0 100px;
+            padding: 100px 0 90px;
             background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
             color: white;
             position: relative;
@@ -611,7 +622,7 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
                     <li><a href="#azure-integration">Azure Integration</a></li>
-                    <li><a href="#" class="btn">Request Demo</a></li>
+                    <li><a href="demo-request.html" class="btn">Request Demo</a></li>
                 </ul>
             </nav>
         </div>
@@ -626,7 +637,7 @@
                     <h1>Transform Your Time Series Data into Strategic Insights</h1>
                     <p>Experience the future of time series analysis with our AI-powered, modern data platform. From automated data scraping and seamless management to advanced forecasting and dynamic visualization, we leverage cutting-edge AI to transform raw data into actionable insights.</p>
                     <div class="hero-btns">
-                        <a href="#" class="btn">Schedule a Demo</a>
+                        <a href="demo-request.html" class="btn">Schedule a Demo</a>
                     </div>
                 </div>
                 
