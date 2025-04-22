@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CurveLab.AI | Cloud-Based Time Series Data Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Variables */
         :root {
             --primary: #0078D4;
-            --secondary: #2B88D8;
+            --primary-light: #2B88D8;
             --dark: #323130;
             --light: #F5F5F5;
+            --white: #FFFFFF;
             --accent: #107C10;
-            --warning: #FFB900;
         }
         
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         body {
@@ -27,42 +31,85 @@
             line-height: 1.6;
         }
         
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 30px;
-            width: 90%;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.3;
         }
         
-        /* Header Styles */
-           /* Header Watermark - Centered Version */
-           header {
-            background-color: white;
-            background-image: repeating-linear-gradient(
-                -10deg,
-                transparent,
-                transparent 40px,
-                rgba(0, 120, 212, 0.02) 40px,
-                rgba(0, 120, 212, 0.02) 80px
-            );
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
             width: 100%;
-            z-index: 100;
+        }
+        
+        /* Information Ticker */
+        .info-ticker {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
             position: relative;
+        }
+        
+        .ticker-container {
+            width: 100%;
             overflow: hidden;
         }
         
+        .ticker-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .ticker-content {
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+            display: inline-block;
+            padding-right: 100%;
+        }
+        
+        .ticker-content span {
+            display: inline-block;
+            padding: 0 40px;
+            font-weight: 500;
+        }
+        
+        @keyframes ticker {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+            transition: all 0.3s ease;
+        }
         
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
         
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
@@ -70,15 +117,15 @@
             align-items: center;
         }
         
-        .logo-icon {
+        .logo i {
             margin-right: 10px;
-            font-size: 32px;
         }
         
         nav ul {
             display: flex;
             list-style: none;
             align-items: center;
+            margin: 0;
         }
         
         nav ul li {
@@ -97,31 +144,35 @@
             color: var(--primary);
         }
         
-        /* Button styling for nav items */
-        nav ul li a.btn {
+        /* Button styling */
+        .btn {
             background-color: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 6px;
             font-weight: 600;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             display: inline-block;
+            text-align: center;
+            cursor: pointer;
         }
         
-        nav ul li a.btn:hover {
-            background-color: var(--secondary);
-            color: white;
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 120, 212, 0.3);
         }
         
-        /* Burger Menu Styles */
-        /* .burger-menu {
+        /* Burger Menu */
+        .burger-menu {
             display: none;
             cursor: pointer;
             flex-direction: column;
             justify-content: space-between;
             width: 30px;
             height: 21px;
+            z-index: 101;
         }
         
         .burger-menu span {
@@ -131,31 +182,15 @@
             background-color: var(--primary);
             border-radius: 3px;
             transition: all 0.3s ease;
-        } */
-        
-        /* General button style for elsewhere on the page */
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s;
         }
         
-        .btn:hover {
-            background-color: var(--secondary);
-        }
-        
-        /* Hero Section with custom curved edges */
+        /* Hero Section */
         .hero {
             padding: 100px 0 90px;
             background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
             color: white;
             position: relative;
             overflow: hidden;
-            padding-bottom: 60px;
         }
         
         /* Bottom wave */
@@ -171,20 +206,19 @@
             background-repeat: no-repeat;
         }
         
-        /* Ensure content is above the curves */
         .hero-content-wrapper {
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: relative;
             z-index: 2;
+            gap: 40px;
         }
         
         .hero-btns {
             display: flex;
             gap: 20px;
-            position: relative;
-            z-index: 2;
+            margin-top: 30px;
         }
         
         .hero-content {
@@ -192,32 +226,28 @@
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             line-height: 1.2;
         }
         
         .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
         
-        .btn {
+        .hero .btn {
             background-color: white;
             color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background-color 0.3s;
         }
         
-        .btn:hover {
-            background-color: #f0f0f0;
+        .hero .btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
         }
         
-        /* Rive Animation Container */
+        /* Animation Container */
         .rive-container {
             width: 45%;
             max-width: 500px;
@@ -225,8 +255,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: transparent; /* Removed background */
-            border-radius: 8px;
+            background: transparent;
+            border-radius: 10px;
             overflow: hidden;
         }
         
@@ -237,15 +267,28 @@
         
         /* Features Section */
         .features {
-            padding: 100px 0;
+            padding: 80px 0;
             background-color: white;
-            padding-top: 60px;
-            padding-bottom: 50px;
+            position: relative;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230078D4' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.8;
+            z-index: 0;
         }
         
         .section-header {
             text-align: center;
             margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
         }
         
         .section-header h2 {
@@ -253,51 +296,121 @@
             font-weight: 700;
             color: var(--dark);
             margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
         }
         
         .section-header p {
             font-size: 18px;
             color: #605E5C;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 50px;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
         }
         
         .feature-card {
             background-color: white;
-            border-radius: 10px;
-            padding: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 120, 212, 0.15);
+            border-color: rgba(0, 120, 212, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            background-color: rgba(0, 120, 212, 0.1);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0.2) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: var(--primary);
-            font-size: 26px;
+            font-size: 28px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            border: 2px dashed var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: spin 20s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .feature-card:hover .feature-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            transform: scale(1.1);
         }
         
         .feature-card h3 {
             font-size: 22px;
             font-weight: 600;
             margin-bottom: 18px;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        
+        .feature-card:hover h3 {
+            color: var(--primary);
         }
         
         .feature-card p {
@@ -306,125 +419,115 @@
             line-height: 1.7;
         }
         
-        /* Azure Integration Section */
-        .azure-integration {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .azure-content {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-        }
-        
-        .azure-text {
-            flex: 1;
-        }
-        
-        .azure-text h2 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        
-        .azure-text p {
-            font-size: 18px;
-            color: #605E5C;
-            margin-bottom: 30px;
-        }
-        
-        .azure-img {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .azure-img img {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
         /* Use Cases Section */
         .use-cases {
             padding: 100px 0;
-            background-color: #f7f9fc;
-            padding-top: 30px;
-        }
-        
-        .use-cases-tabs {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #EDEBE9;
-            padding-bottom: 10px;
-        }
-        
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #605E5C;
-            cursor: pointer;
-            transition: color 0.3s;
+            background-color: #f8fafc;
             position: relative;
+            overflow: hidden;
         }
         
-        .tab-btn:after {
+        .use-cases::before {
             content: '';
             position: absolute;
-            bottom: -11px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background-color: var(--primary);
-            transition: width 0.3s;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0) 70%);
+            border-radius: 50%;
         }
         
-        .tab-btn.active {
-            color: var(--primary);
-        }
-        
-        .tab-btn.active:after {
-            width: 100%;
+        .use-cases::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0) 70%);
+            border-radius: 50%;
         }
         
         .use-case-content {
             display: flex;
             align-items: center;
-            gap: 80px;
+            gap: 60px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 60px auto 0;
+            position: relative;
+            z-index: 1;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 40px;
         }
         
         .use-case-img {
             flex: 1;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .use-case-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 50%);
+            z-index: 1;
+        }
+        
+        .use-case-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
         
         .use-case-img img {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        
+        .use-case-img:hover img {
+            transform: scale(1.05);
         }
         
         .use-case-text {
-            flex: 1;
+            flex: 1.2;
+            padding: 20px;
         }
         
         .use-case-text h3 {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .use-case-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
         
         .use-case-text p {
-            font-size: 16px;
-            color: #605E5C;
-            margin-bottom: 20px;
+            font-size: 17px;
+            color: #4b5563;
+            margin-bottom: 30px;
+            line-height: 1.7;
         }
         
         .use-case-list {
@@ -432,28 +535,172 @@
         }
         
         .use-case-list li {
-            margin-bottom: 10px;
-            padding-left: 30px;
+            margin-bottom: 15px;
+            padding-left: 35px;
             position: relative;
+            color: #4b5563;
+            font-size: 16px;
         }
         
         .use-case-list li:before {
             content: '✓';
             position: absolute;
             left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background-color: rgba(16, 124, 16, 0.1);
             color: var(--accent);
             font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
         }
         
-        /* CTA Section with top waves */
+        /* Azure Integration Section */
+        .azure-integration {
+            padding: 100px 0;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .azure-integration::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230078D4' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-position: center;
+            z-index: 0;
+        }
+        
+        .azure-content {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .azure-text {
+            flex: 1;
+        }
+        
+        .azure-text h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .azure-text p {
+            font-size: 17px;
+            color: #4b5563;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .azure-img {
+            flex: 1;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+        }
+        
+        .azure-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.2) 0%, rgba(0, 120, 212, 0) 50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .azure-img:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .azure-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+        
+        .azure-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .azure-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .azure-feature {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(0, 120, 212, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .azure-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 120, 212, 0.3);
+        }
+        
+        .azure-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .azure-feature-text h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .azure-feature-text p {
+            font-size: 14px;
+            margin: 0;
+            color: #4b5563;
+        }
+        
+        /* CTA Section */
         .cta {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #0078D4 0%, #83BBEC 100%);
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #0078D4 0%, #2B88D8 70%, #83BBEC 100%);
             color: white;
             text-align: center;
             position: relative;
             overflow: hidden;
-            padding-top: 100px;
         }
         
         /* Add top waves to CTA section */
@@ -475,22 +722,105 @@
             z-index: 2;
         }
         
+        .cta h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .cta .btn {
+            background-color: white;
+            color: var(--primary);
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .cta .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background-color: #1f2937;
             color: white;
-            padding: 20px 0;
-            font-size: 14px;
+            padding: 70px 0 20px;
+            position: relative;
         }
         
-        .footer-bottom {
-            text-align: center;
-            margin-top: 10px;
-            color: #c8c6c4;
-            font-size: 12px;
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
         }
         
-        /* Mobile Navigation Styles */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-col h4 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+            color: white;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-light);
+        }
+        
+        .footer-col p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        /* Mobile Responsive */
         @media (max-width: 992px) {
             .burger-menu {
                 display: flex;
@@ -498,7 +828,7 @@
             
             .main-nav {
                 position: fixed;
-                top: 80px;
+                top: 70px;
                 left: 0;
                 width: 100%;
                 background-color: white;
@@ -560,11 +890,11 @@
             }
             
             .hero h1 {
-                font-size: 36px;
+                font-size: 32px;
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .hero-btns {
@@ -574,19 +904,32 @@
             /* Features responsive adjustments */
             .features-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
+                gap: 20px;
             }
 
             /* Use cases responsive adjustments */
             .use-case-content {
                 flex-direction: column;
                 gap: 40px;
+                padding: 30px;
             }
             
             /* Azure integration responsive adjustments */
             .azure-content {
                 flex-direction: column;
                 gap: 40px;
+            }
+            
+            .azure-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta h2 {
+                font-size: 32px;
+            }
+            
+            .cta p {
+                font-size: 16px;
             }
         }
         
@@ -596,21 +939,139 @@
             }
             
             .feature-card {
-                padding: 40px;
+                padding: 30px;
             }
             
             .section-header h2 {
                 font-size: 30px;
             }
+            
+            .azure-feature {
+                padding: 15px;
+            }
+            
+            .azure-feature-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+                margin-right: 15px;
+            }
+            
+            .ticker-content span {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+            
+            .footer-col {
+                flex: 100%;
+            }
+        }
+        
+        .footer-logo i {
+            margin-right: 10px;
+            color: var(--primary-light);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            margin-right: 15px;
+            color: var(--primary-light);
+            font-size: 18px;
+            margin-top: 3px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-size: 15px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: var(--primary-light);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
         }
     </style>
 </head>
 <body>
+    <!-- Information Ticker -->
+    <div class="info-ticker">
+        <div class="ticker-container">
+            <div class="ticker-wrapper">
+                <div class="ticker-content">
+                    <span>🔔 New AI forecasting models available!</span>
+                    <span>📊 Visualize your time series data with our advanced dashboard tools</span>
+                    <span>🌐 Now supporting data integration with all major cloud providers</span>
+                    <span>💻 Try our free 30-day trial of CurveLab.AI Professional</span>
+                    <span>🚀 Recently named "Top Innovator in Time Series Analytics" for 2025</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <span class="logo-icon"></span>CurveLab.AI
+                <i class="fas fa-chart-line"></i> CurveLab.AI
             </a>
             <div class="burger-menu" id="burger-menu">
                 <span></span>
@@ -622,7 +1083,7 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#use-cases">Use Cases</a></li>
                     <li><a href="#azure-integration">Azure Integration</a></li>
-                    <li><a href="demo-request.html" class="btn">Request Demo</a></li>
+                    <li><a href="#" class="btn" id="demoBtn">Request Demo</a></li>
                 </ul>
             </nav>
         </div>
@@ -637,11 +1098,11 @@
                     <h1>Transform Your Time Series Data into Strategic Insights</h1>
                     <p>Experience the future of time series analysis with our AI-powered, modern data platform. From automated data scraping and seamless management to advanced forecasting and dynamic visualization, we leverage cutting-edge AI to transform raw data into actionable insights.</p>
                     <div class="hero-btns">
-                        <a href="demo-request.html" class="btn">Schedule a Demo</a>
+                        <a href="#" class="btn" id="demoButton">Schedule a Demo</a>
                     </div>
                 </div>
                 
-                <!-- Right Side: Rive Animation -->
+                <!-- Right Side: Animation -->
                 <div class="rive-container">
                     <canvas id="rive-canvas"></canvas>
                 </div>
@@ -658,37 +1119,49 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">↓</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-download-alt"></i>
+                    </div>
                     <h3>Automated Data Scraping</h3>
                     <p>We have established a streamlined and automated data scraping system that efficiently gathers information from various sources, providing dependable and customized data collection to meet your specific requirements.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">✓</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
                     <h3>Data Validation Engine</h3>
                     <p>We employ an automated system for ongoing checks and monitoring to ensure data quality, featuring a robust validation framework and customizable rules to identify anomalies and uphold data integrity.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">☁</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
                     <h3>Cloud-Native Scalability</h3>
                     <p>Our cloud storage, powered by Azure, is specifically designed for time series data, dynamically scaling to deliver optimal performance, even during periods of high data volume.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
                     <h3>Visualization & Analysis</h3>
                     <p>Our platform features interactive dashboards and advanced visualization tools designed to simplify complex time series data, transforming it into actionable business intelligence.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">👁</div>
-                    <h3>Traditional Forecasting Techniques</h3>
-                    <p>We leverage traditional time series forecasting methods, such as linear and polynomial regression, to deliver accurate and dependable predictions.</p>
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Traditional Forecasting</h3>
+                    <p>We leverage traditional time series forecasting methods, such as linear and polynomial regression, to deliver accurate and dependable predictions for your business planning needs.</p>
                 </div>
                 
                 <div class="feature-card">
-                    <div class="feature-icon">💬</div>
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
                     <h3>AI-Powered Forecasting</h3>
                     <p>We have developed advanced machine learning and deep learning tools, along with a powerful AI agent, to revolutionize time series analysis and forecasting.</p>
                 </div>
@@ -706,7 +1179,7 @@
             
             <div class="use-case-content" id="data-management-content">
                 <div class="use-case-img">
-                    <img src="images\b6cc6db1-944d-4126-b8ee-016d25921209.jpeg"  alt="Time Series Data Use Case">
+                    <img src="images/b6cc6db1-944d-4126-b8ee-016d25921209.jpeg" alt="Time Series Data Use Case">
                 </div>
                 <div class="use-case-text">
                     <h3>Data Structuring & AI-Driven Insights</h3>
@@ -727,14 +1200,61 @@
     <!-- Azure Integration Section -->
     <section class="azure-integration" id="azure-integration">
         <div class="container">
+            <div class="section-header">
+                <h2>Powered by Microsoft Azure</h2>
+                <p>Enterprise-grade security, scalability, and performance for your mission-critical time series data</p>
+            </div>
+            
             <div class="azure-content">
                 <div class="azure-text">
-                    <h2>Powered by Microsoft Azure</h2>
+                    <h3>Cloud-Native Architecture</h3>
                     <p>Our platform leverages the full power of Azure's cloud infrastructure to deliver unmatched performance, reliability, and scalability for your time series data needs.</p>
                     <p>With Azure's global network of data centers, your time series data platform can operate seamlessly across regions while maintaining compliance with local regulations.</p>
+                    
+                    <div class="azure-features">
+                        <div class="azure-feature">
+                            <div class="azure-feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="azure-feature-text">
+                                <h4>Enterprise Security</h4>
+                                <p>Advanced encryption and security protocols</p>
+                            </div>
+                        </div>
+                        
+                        <div class="azure-feature">
+                            <div class="azure-feature-icon">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </div>
+                            <div class="azure-feature-text">
+                                <h4>Unlimited Scalability</h4>
+                                <p>Dynamic scaling for any data volume</p>
+                            </div>
+                        </div>
+                        
+                        <div class="azure-feature">
+                            <div class="azure-feature-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="azure-feature-text">
+                                <h4>High Performance</h4>
+                                <p>Lightning-fast processing and analytics</p>
+                            </div>
+                        </div>
+                        
+                        <div class="azure-feature">
+                            <div class="azure-feature-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="azure-feature-text">
+                                <h4>Global Availability</h4>
+                                <p>Data centers across regions worldwide</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="azure-img">
-                    <img src="images\7030586b-ee40-4431-8912-bb7df343e7d5.jpeg"alt="Azure Integration Architecture">
+                    <img src="images/7030586b-ee40-4431-8912-bb7df343e7d5.jpeg" alt="Azure Integration Architecture">
                 </div>
             </div>
         </div>
@@ -744,34 +1264,67 @@
     <section class="cta">
         <div class="container">
             <h2>Ready to Elevate Your Time Series Data?</h2>
-            <p>Schedule a personalized demo to see how our platform can address your specific business challenges.</p>
+            <p>Schedule a personalized demo to see how our platform can address your specific business challenges and transform your data into strategic insights.</p>
+            <a href="#" class="btn" id="ctaButton">Request a Demo</a>
         </div>
     </section>
     
     <!-- Footer -->
     <footer>
-        <div class="container" style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; text-align: center;">
-            <!-- Location -->
-            <div class="footer-col" style="margin: 0 20px; text-align: left;">
-                <h4 style="margin-bottom: 5px; font-size: 14px;">Location</h4>
-                <p style="margin: 0;">United Arab Emirates, Dubai, DIFC</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i> CurveLab.AI
+                    </div>
+                    <p>CurveLab.AI provides an innovative cloud-based platform for time series data collection, analysis, and forecasting. Our AI-powered solutions help businesses transform raw data into strategic insights.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features"><i class="fas fa-angle-right"></i> Features</a></li>
+                        <li><a href="#use-cases"><i class="fas fa-angle-right"></i> Use Cases</a></li>
+                        <li><a href="#azure-integration"><i class="fas fa-angle-right"></i> Azure Integration</a></li>
+                        <li><a href="#" id="footerDemoLink"><i class="fas fa-angle-right"></i> Request Demo</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p>United Arab Emirates, Dubai, DIFC</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <p>admin@curvelab.ai</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <p>(+971) 559172505</p>
+                    </div>
+                </div>
             </div>
             
-            <!-- Contact -->
-            <div class="footer-col" style="margin: 0 20px; text-align: left;">
-                <h4 style="margin-bottom: 5px; font-size: 14px;">Contact</h4>
-                <p style="margin: 0;">admin@curvelab.ai</p>
-                <p style="margin: 0;">(+971)559172505</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CurveLab.AI. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 CurveLab. All rights reserved.</p>
-        </div>
     </footer>
-    
-    <!-- Rive Runtime -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rive-js/0.7.33/rive.min.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -779,68 +1332,79 @@
             const burgerMenu = document.getElementById('burger-menu');
             const mainNav = document.getElementById('main-nav');
             
-            burgerMenu.addEventListener('click', function() {
-                this.classList.toggle('active');
-                mainNav.classList.toggle('show');
-            });
+            if (burgerMenu) {
+                burgerMenu.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    if (mainNav) {
+                        mainNav.classList.toggle('show');
+                    }
+                });
+            }
             
             // Close menu when clicking on a nav link
             const navLinks = document.querySelectorAll('.main-nav a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    burgerMenu.classList.remove('active');
-                    mainNav.classList.remove('show');
+                    if (burgerMenu) burgerMenu.classList.remove('active');
+                    if (mainNav) mainNav.classList.remove('show');
                 });
             });
             
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const isClickInsideNav = mainNav.contains(event.target);
-                const isClickInsideBurger = burgerMenu.contains(event.target);
-                
-                if (!isClickInsideNav && !isClickInsideBurger && mainNav.classList.contains('show')) {
-                    burgerMenu.classList.remove('active');
-                    mainNav.classList.remove('show');
-                }
+            // Demo Modal Setup
+            const demoBtn = document.getElementById('demoBtn');
+            const demoButton = document.getElementById('demoButton');
+            const ctaButton = document.getElementById('ctaButton');
+            const footerDemoLink = document.getElementById('footerDemoLink');
+            
+            const openDemoForm = function(e) {
+                e.preventDefault();
+                window.location.href = "demo-request.html";
+            };
+                    
+            if (demoBtn) demoBtn.addEventListener('click', openDemoForm);
+            if (demoButton) demoButton.addEventListener('click', openDemoForm);
+            if (ctaButton) ctaButton.addEventListener('click', openDemoForm);
+            if (footerDemoLink) footerDemoLink.addEventListener('click', openDemoForm);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
             
-            // Initialize Rive Animation
+            // Initialize Canvas Animation
             const canvas = document.getElementById('rive-canvas');
-            
-            // Create a data visualization animation using Rive
-            // Note: We'll simulate a Rive animation with custom JavaScript
-            // In a real implementation, you would load a .riv file
-            
-            // Create a simple line chart animation
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width = canvas.clientWidth;
-            const height = canvas.height = canvas.clientHeight;
-            
-            // Animation parameters
-            let points = [];
-            const maxPoints = 10;
-            const pointSpacing = width / maxPoints;
-            const animationSpeed = 0.02; // Reduced speed further (was 0.05)
-            let time = 0;
-            
-            // Padding for axes
-            const padding = {
-                left: 40,
-                right: 20,
-                top: 20,
-                bottom: 40
-            };
-            
-            // Variables need to be defined in the scope for resize handler
-            let chartWidth = width - padding.left - padding.right;
-            let chartHeight = height - padding.top - padding.bottom;
-            
-            // Initialize points
-            function initPoints() {
-                points = [];
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas dimensions
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                
+                // Animation variables
+                const width = canvas.width;
+                const height = canvas.height;
+                const padding = { left: 40, right: 20, top: 20, bottom: 40 };
                 const chartWidth = width - padding.left - padding.right;
                 const chartHeight = height - padding.top - padding.bottom;
+                let time = 0;
+                const animationSpeed = 0.02; // Slower animation speed for smoother effect
+                const maxPoints = 10;
+                let points = [];
+                let animationFrame;
                 
+                // Initialize data points
                 for (let i = 0; i < maxPoints; i++) {
                     points.push({
                         x: padding.left + (i * (chartWidth / (maxPoints - 1))),
@@ -848,183 +1412,160 @@
                         phase: Math.random() * Math.PI * 2
                     });
                 }
-            }
-            
-            // Initialize on load
-            initPoints();
-            
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
                 
-                // Update time
-                time += animationSpeed;
-                
-                // Draw axes
-                drawAxes();
-                
-                // Draw line
-                ctx.beginPath();
-                
-                // Update points and draw curve
-                for (let i = 0; i < points.length; i++) {
-                    const point = points[i];
-                    // Calculate new y position with constrained range to stay within chart area
-                    point.y = padding.top + (chartHeight / 2) + Math.sin(time + point.phase) * (chartHeight / 4);
+                // Function to draw axes
+                function drawAxes() {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 1;
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'middle';
                     
-                    if (i === 0) {
-                        ctx.moveTo(point.x, point.y);
-                    } else {
-                        // Use a smooth curve
-                        const prevPoint = points[i - 1];
-                        const ctrl1X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
-                        const ctrl1Y = prevPoint.y;
-                        const ctrl2X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
-                        const ctrl2Y = point.y;
+                    // Y-axis
+                    ctx.beginPath();
+                    ctx.moveTo(padding.left, padding.top);
+                    ctx.lineTo(padding.left, height - padding.bottom);
+                    ctx.stroke();
+                    
+                    // Y-axis ticks and labels
+                    const numYTicks = 5;
+                    for (let i = 0; i <= numYTicks; i++) {
+                        const y = padding.top + (i / numYTicks) * chartHeight;
+                        const value = 100 - (i / numYTicks) * 100;
                         
-                        ctx.bezierCurveTo(ctrl1X, ctrl1Y, ctrl2X, ctrl2Y, point.x, point.y);
+                        ctx.beginPath();
+                        ctx.moveTo(padding.left - 5, y);
+                        ctx.lineTo(padding.left, y);
+                        ctx.stroke();
+                        
+                        ctx.fillText(value.toFixed(0), padding.left - 8, y);
+                    }
+                    
+                    // X-axis
+                    ctx.beginPath();
+                    ctx.moveTo(padding.left, height - padding.bottom);
+                    ctx.lineTo(width - padding.right, height - padding.bottom);
+                    ctx.stroke();
+                    
+                    // X-axis ticks and labels
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'top';
+                    
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+                    
+                    // Draw x-axis labels
+                    for (let i = 0; i < maxPoints; i++) {
+                        const x = padding.left + (i * (chartWidth / (maxPoints - 1)));
+                        
+                        // Draw tick
+                        ctx.beginPath();
+                        ctx.moveTo(x, height - padding.bottom);
+                        ctx.lineTo(x, height - padding.bottom + 5);
+                        ctx.stroke();
+                        
+                        // Draw month label
+                        if (i < months.length) {
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                            ctx.fillText(months[i], x, height - padding.bottom + 10);
+                        }
                     }
                 }
                 
-                // Style the line
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.lineWidth = 3;
-                ctx.stroke();
-                
-                // Draw points
-                for (let i = 0; i < points.length; i++) {
-                    const point = points[i];
+                // Animation function
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
                     
-                    // Pulse effect for points (slower pulse)
-                    const pulseSize = 4 + Math.sin(time + point.phase) * 2;
+                    time += animationSpeed;
                     
+                    // Draw axes
+                    drawAxes();
+                    
+                    // Draw line
                     ctx.beginPath();
-                    ctx.arc(point.x, point.y, pulseSize, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                    ctx.fill();
-                }
-                
-                // Add some background data points (reduced quantity and opacity)
-                for (let i = 0; i < 15; i++) {
-                    const x = padding.left + Math.random() * chartWidth;
-                    const y = padding.top + Math.random() * chartHeight;
-                    const size = Math.random() * 1.5 + 0.5;
                     
-                    ctx.beginPath();
-                    ctx.arc(x, y, size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.2})`;
-                    ctx.fill();
-                }
-                
-                // Store reference to animation frame for proper cancellation
-                animationFrame = requestAnimationFrame(animate);
-            }
-            
-            // Function to draw axes
-            function drawAxes() {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-                ctx.lineWidth = 1;
-                ctx.font = '12px Arial'; // Increased font size for better readability
-                ctx.textAlign = 'right';
-                ctx.textBaseline = 'middle';
-                
-                // Y-axis
-                ctx.beginPath();
-                ctx.moveTo(padding.left, padding.top);
-                ctx.lineTo(padding.left, height - padding.bottom);
-                ctx.stroke();
-                
-                // Y-axis ticks and labels
-                const numYTicks = 5;
-                for (let i = 0; i <= numYTicks; i++) {
-                    const y = padding.top + (i / numYTicks) * chartHeight;
-                    const value = 100 - (i / numYTicks) * 100;
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(padding.left - 5, y);
-                    ctx.lineTo(padding.left, y);
-                    ctx.stroke();
-                    
-                    ctx.fillText(value.toFixed(0), padding.left - 8, y);
-                }
-                
-                // X-axis
-                ctx.beginPath();
-                ctx.moveTo(padding.left, height - padding.bottom);
-                ctx.lineTo(width - padding.right, height - padding.bottom);
-                ctx.stroke();
-                
-                // X-axis ticks and labels
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'top';
-                
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
-                
-                // Draw x-axis labels with better spacing
-                for (let i = 0; i < maxPoints; i++) {
-                    const x = padding.left + (i * (chartWidth / (maxPoints - 1)));
-                    
-                    // Draw tick
-                    ctx.beginPath();
-                    ctx.moveTo(x, height - padding.bottom);
-                    ctx.lineTo(x, height - padding.bottom + 5);
-                    ctx.stroke();
-                    
-                    // Draw month label with no background
-                    if (i < months.length) {
-                        // Draw text directly without background
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                        ctx.fillText(months[i], x, height - padding.bottom + 10);
+                    for (let i = 0; i < points.length; i++) {
+                        const point = points[i];
+                        
+                        // Update Y position with smooth sine wave motion
+                        point.y = padding.top + (chartHeight / 2) + Math.sin(time + point.phase) * (chartHeight / 4);
+                        
+                        if (i === 0) {
+                            ctx.moveTo(point.x, point.y);
+                        } else {
+                            // Create a smooth curve between points
+                            const prevPoint = points[i - 1];
+                            const ctrl1X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                            const ctrl1Y = prevPoint.y;
+                            const ctrl2X = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                            const ctrl2Y = point.y;
+                            
+                            ctx.bezierCurveTo(ctrl1X, ctrl1Y, ctrl2X, ctrl2Y, point.x, point.y);
+                        }
                     }
+                    
+                    // Style the line
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                    
+                    // Draw points
+                    for (let i = 0; i < points.length; i++) {
+                        const point = points[i];
+                        
+                        // Add pulse effect to the points
+                        const pulseSize = 4 + Math.sin(time + point.phase) * 1.5;
+                        
+                        ctx.beginPath();
+                        ctx.arc(point.x, point.y, pulseSize, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.fill();
+                    }
+                    
+                    // Add some background data points for visual interest
+                    for (let i = 0; i < 15; i++) {
+                        const x = padding.left + Math.random() * chartWidth;
+                        const y = padding.top + Math.random() * chartHeight;
+                        const size = Math.random() * 1.5 + 0.5;
+                        
+                        ctx.beginPath();
+                        ctx.arc(x, y, size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.2})`;
+                        ctx.fill();
+                    }
+                    
+                    // Continue animation
+                    animationFrame = requestAnimationFrame(animate);
                 }
                 
-                // Y-axis title
-                ctx.save();
-                ctx.translate(10, height / 2);
-                ctx.rotate(-Math.PI / 2);
-                ctx.textAlign = 'center';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-                ctx.font = '14px Arial';
-                ctx.restore();
-                
-                // X-axis title without background
-                ctx.textAlign = 'center';
-                ctx.font = '14px Arial';
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-            }
-            
-            // Start animation
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                // Stop any existing animation frame
-                if (animationFrame) {
-                    cancelAnimationFrame(animationFrame);
-                }
-                
-                // Reset canvas dimensions
-                canvas.width = canvas.clientWidth;
-                canvas.height = canvas.clientHeight;
-                
-                // Update width and height variables
-                width = canvas.width;
-                height = canvas.height;
-                
-                // Update chart dimensions
-                chartWidth = width - padding.left - padding.right;
-                chartHeight = height - padding.top - padding.bottom;
-                
-                // Reinitialize points for new dimensions
-                initPoints();
-                
-                // Restart animation
+                // Start animation
                 animate();
-            });
-            
-            // Store animation frame request for proper cancellation
-            let animationFrame;
+                
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    // Cancel current animation frame
+                    if (animationFrame) {
+                        cancelAnimationFrame(animationFrame);
+                    }
+                    
+                    // Resize canvas
+                    canvas.width = canvas.clientWidth;
+                    canvas.height = canvas.clientHeight;
+                    
+                    const newWidth = canvas.width;
+                    const newHeight = canvas.height;
+                    const newChartWidth = newWidth - padding.left - padding.right;
+                    const newChartHeight = newHeight - padding.top - padding.bottom;
+                    
+                    // Recalculate points positions
+                    for (let i = 0; i < points.length; i++) {
+                        points[i].x = padding.left + (i * (newChartWidth / (maxPoints - 1)));
+                    }
+                    
+                    // Restart animation
+                    animate();
+                });
+            }
         });
     </script>
 </body>
